@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="print_product_action" model="ir.actions.act_window">
+        <field name="name">Print Product</field>
+        <field name="res_model">print.product</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="print_product_view_form" model="ir.ui.view">
+        <field name="name">print.product.form</field>
+        <field name="model">print.product</field>
+        <field name="arch" type="xml">
+            <form string="channel">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="product_step" widget="one2many_list">
+                                <tree>
+                                    <field name="step_name"/>
+                                    <field name="sequence"/>
+                                </tree>
+                        </field>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

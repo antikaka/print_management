@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="print_machine_action" model="ir.actions.act_window">
+        <field name="name">Print Machine</field>
+        <field name="res_model">print.machine</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="print_machine_option_action" model="ir.actions.act_window">
+        <field name="name">Print Machine Option</field>
+        <field name="res_model">print.machine.option</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="print_machine_instruction_action" model="ir.actions.act_window">
+        <field name="name">Print Machine instruction</field>
+        <field name="res_model">print.machine.instruction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+      <record id="print_machine_view_tree" model="ir.ui.view">
+        <field name="name">print.machine.tree</field>
+        <field name="model">print.machine</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="print_machine_view_form" model="ir.ui.view">
+        <field name="name">print.machine.form</field>
+        <field name="model">print.machine</field>
+        <field name="arch" type="xml">
+            <form string="Channel">
+                <sheet>
+                <h1>
+                <field name="name" string="Name" readonly="name_readonly"/>
+                    <field name="name_readonly" invisible="True"/>
+                 </h1>
+                <group>
+                    <field name="machine_maxspeed"/>
+                    <field name="machine_maxwidth"/>
+                    <field name="machine_maxlength"/>
+                    <field name="machine_notes"/>
+               </group>
+                </sheet>
+                <sheet>
+            <notebook>
+                <page string="Options">
+                    <field name="machine_options" widget="many2many_checkboxes"/>
+                </page>
+                <page string="Instructions">
+                    <field name="instruction_text"/>
+                </page>
+
+            </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="print_machine_instruction_view_tree" model="ir.ui.view">
+        <field name="name">print.machine.instruction.tree</field>
+        <field name="model">print.machine.instruction</field>
+        <field name="arch" type="xml">
+            <tree string="channel">
+                <field name="machine_n_option_name"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

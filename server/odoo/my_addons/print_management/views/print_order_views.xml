@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="print_order_action" model="ir.actions.act_window">
+        <field name="name">Print Orders</field>
+        <field name="res_model">print.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="print_order_view_tree" model="ir.ui.view">
+        <field name="name">print.order.tree</field>
+        <field name="model">print.order</field>
+        <field name="arch" type="xml">
+            <tree decoration-danger="order_late==True" decoration-warning="order_warning==True" decoration-success="order_status=='2'">
+                <field name="name"/>
+                <field name="order_received"/>
+                <field name="order_due"/>
+                <field name="product"/>
+                <field name="order_status"/>
+                <field name="order_warning" column_invisible="True"/>
+                <field name="order_late" column_invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="print_order_view_form" model="ir.ui.view">
+        <field name="name">print.order.form</field>
+        <field name="model">print.order</field>
+        <field name="arch" type="xml">
+            <form string="Print Order">
+                <group>
+                    <notebook>
+                        <page string="Order status">
+                            <tree>
+                                <field name="order_status" widget="statusbar"/>
+                            </tree>
+                            <div style="float:right;">
+                                <button name="action_status_back" string="Send back" type="object" icon="fa-long-arrow-left" help="Set its status one step back (possibly sending it to the previous station)"/>
+                                <button name="action_status_forward" string="Send forward" type="object" icon="fa-long-arrow-right" help="Set its status one stop forward"/>
+                            </div>
+                        </page>
+                        <page string="Operator status">
+                            <field name="operator_status" style="font-weight: bold;"/>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="name" readonly="True"/>
+                        <field name="customer"/>
+                        <field name="order_manager"/>
+                        <field name="order_received"/>
+                        <field name="order_due"/>
+                        <field name="notes"/>
+                        <field name="product"/>
+                    </group>
+
+
+                    <field name="op_1_label" readonly="True" invisible="op_1_use" style="font-weight: bold;"/>
+                    <field name="op_1" invisible="op_1_use"/>
+                    <field name="op_2_label" readonly="True" invisible="op_2_use" style="font-weight: bold;"/>
+                    <field name="op_2" invisible="op_2_use"/>
+                    <field name="op_3_label" readonly="True" invisible="op_3_use" style="font-weight: bold;"/>
+                    <field name="op_3" invisible="op_3_use"/>
+                    <field name="op_4_label" readonly="True" invisible="op_4_use" style="font-weight: bold;"/>
+                    <field name="op_4" invisible="op_4_use"/>
+                    <field name="op_5_label" readonly="True" invisible="op_5_use" style="font-weight: bold;"/>
+                    <field name="op_5" invisible="op_5_use"/>
+                    <field name="op_6_label" readonly="True" invisible="op_6_use" style="font-weight: bold;"/>
+                    <field name="op_6" invisible="op_6_use"/>
+                    <field name="op_7_label" readonly="True" invisible="op_7_use" style="font-weight: bold;"/>
+                    <field name="op_7" invisible="op_7_use"/>
+                    <field name="op_8_label" readonly="True" invisible="op_8_use" style="font-weight: bold;"/>
+                    <field name="op_8" invisible="op_8_use"/>
+                    <field name="op_9_label" readonly="True" invisible="op_9_use" style="font-weight: bold;"/>
+                    <field name="op_9" invisible="op_9_use"/>
+                    <field name="op_10_label" readonly="True" invisible="op_10_use" style="font-weight: bold;"/>
+                    <field name="op_10" invisible="op_10_use"/>
+
+
+                    <field name="op_1_allowed" invisible="True"/>
+                    <field name="op_2_allowed" invisible="True"/>
+                    <field name="op_3_allowed" invisible="True"/>
+                    <field name="op_4_allowed" invisible="True"/>
+                    <field name="op_5_allowed" invisible="True"/>
+                    <field name="op_6_allowed" invisible="True"/>
+                    <field name="op_7_allowed" invisible="True"/>
+                    <field name="op_8_allowed" invisible="True"/>
+                    <field name="op_9_allowed" invisible="True"/>
+                    <field name="op_10_allowed" invisible="True"/>
+                    <field name="op_1_use" invisible="True"/>
+                    <field name="op_2_use" invisible="True"/>
+                    <field name="op_3_use" invisible="True"/>
+                    <field name="op_4_use" invisible="True"/>
+                    <field name="op_5_use" invisible="True"/>
+                    <field name="op_6_use" invisible="True"/>
+                    <field name="op_7_use" invisible="True"/>
+                    <field name="op_8_use" invisible="True"/>
+                    <field name="op_9_use" invisible="True"/>
+                    <field name="op_10_use" invisible="True"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

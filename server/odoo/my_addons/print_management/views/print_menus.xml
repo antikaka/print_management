@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="print_order_root" name="Print Management">
+        <menuitem id="print_order_firstlevel_menu" name="Print Orders">
+            <menuitem id="print_order_menu_action" action="print_order_action"/>
+            <menuitem id="print_product_menu_action" action="print_product_action"/>
+        </menuitem>
+        <menuitem id="print_machine_firstlevel_menu" name="Machines">
+            <menuitem id="print_machine_menu_action" action="print_machine_action"/>
+            <menuitem id="print_machine_option_menu_action" action="print_machine_option_action"/>
+        </menuitem>
+        <menuitem id="print_operator_firstlevel_menu" name="Operator view">
+            <menuitem id="print_operator_menu_action" action="print_operator_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>

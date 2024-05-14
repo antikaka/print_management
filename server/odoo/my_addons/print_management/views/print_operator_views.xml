@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="print_operator_action" model="ir.actions.act_window">
+        <field name="name">Print Operator</field>
+        <field name="res_model">print.operator</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="print_operator_view_tree" model="ir.ui.view">
+        <field name="name">print.operator.tree</field>
+        <field name="model">print.operator</field>
+        <field name="arch" type="xml">
+            <tree string="channel">
+                <field name="name"/>
+                <field name="order_due"/>
+                <field name="current_step_num"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="print_operator_view_form" model="ir.ui.view">
+        <field name="name">print.operator.form</field>
+        <field name="model">print.operator</field>
+        <field name="arch" type="xml">
+            <form string="channel">
+                <sheet>
+                    <div style="float:right;">
+                        <button name="action_step_back" string="Send back" type="object"
+                                icon="fa-long-arrow-left"
+                                help="Set its status one step back (possibly sending it to the previous station)"/>
+                        <button name="action_step_forward" string="Send forward" type="object"
+                                icon="fa-long-arrow-right" help="Set its status one stop forward"/>
+                    </div>
+                    <separator/>
+                </sheet>
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name"/>
+                            <field name="op_customer"/>
+                            <field name="op_order_manager"/>
+                            <field name="order_received"/>
+                            <field name="order_due"/>
+                            <field name="order_notes"/>
+                            <field name="operator_product" invisible="True"/>
+                            <field name="op_product" readonly="True"/>
+                        </group>
+                        <group>
+
+                            <field name="step_max_list" invisible="True"/>
+                            <field name="op_product_steps"/>
+                            <field name="current_step"/>
+                            <field name="op_product_machines"/>
+                            <field name="current_step_machine" readonly="True"/>
+                            <field name="current_step_num" readonly="True"/>
+                            <field name="step_max" readonly="True"/>
+                            <field name="step_number_statusbar" widget="statusbar" statusbar_visible=" "/>
+                            <field name="operator_notes"/>
+                        </group>
+                    </group>
+                <notebook>
+                    <page string="Print instructions">
+                        <field name="current_instructions"/>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="print_operator_tree_search" model="ir.ui.view">
+        <field name="name">print.operator.search</field>
+        <field name="model">print.operator</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"></field>
+                <separator/>
+                <filter string="Archived orders" name="active" domain="[('active', '=', False)]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Current machine" name="machinefilter"
+                            context="{'group_by': 'current_step_machine'}"></filter>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_operator" model="ir.actions.act_window">
+        <field name="name">Operator tree</field>
+        <field name="res_model">print.operator</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

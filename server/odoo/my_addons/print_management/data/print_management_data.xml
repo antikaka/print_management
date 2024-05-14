@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="action_order_to_operator" model="ir.actions.act_window">
+        <field name="name">Trigger OrdertoOperator</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">order.to.operator</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>
+

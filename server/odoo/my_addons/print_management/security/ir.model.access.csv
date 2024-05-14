@@ -1,0 +1,9 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_print_order,access_print_order,model_print_order,base.group_user,1,1,1,1
+access_print_machine,access_print_machine,model_print_machine,base.group_user,1,1,1,1
+access_print_machine_option,access_print_machine_option,model_print_machine_option,base.group_user,1,1,1,1
+access_print_machine_instruction,access_print_machine_instruction,model_print_machine_instruction,base.group_user,1,1,1,1
+access_print_product,access_print_product,model_print_product,base.group_user,1,1,1,1
+access_print_product_step,access_print_product_step,model_print_product_step,base.group_user,1,1,1,1
+access_print_operator,access_print_operator,model_print_operator,base.group_user,1,1,1,1
+access_order_to_operator,access_order_to_operator,model_order_to_operator,base.group_user,1,1,1,1

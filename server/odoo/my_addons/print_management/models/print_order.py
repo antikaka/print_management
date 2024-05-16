@@ -151,86 +151,21 @@ class PrintOrder(models.Model):
     @api.depends("product", "product.product_step", "product.product_step.machine_option_id", "product.product_step.machine_option_id.option", "product.product_step.sequence")
     # @api.onchange("product")
     def _compute_available_machines(self): #check which machines have the option to complete the product step
+        temp_dict = {}
+        for x in range(10):
+            var_name = "op_" + str(x + 1) + "_use"
+            temp_dict[x+1] = getattr(self, var_name)
         for record in self:
-            allowed_machines = self.env['print.machine']              #initialize empty recordset
-            if record.op_1_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 1:
-                        allowed_machines |= step.machine_option_id.option #merge recordsets
+            for key, value in temp_dict.items():
 
-            record.op_1_allowed = allowed_machines.ids
+                allowed_machines = self.env['print.machine']              #initialize empty recordset
+                if value == False:
+                    for step in record.product.product_step:
+                        if step.sequence == key:
+                            allowed_machines |= step.machine_option_id.option #merge recordsets
 
-            allowed_machines = self.env["print.machine"]
-            if record.op_2_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 2:
-                        allowed_machines |= step.machine_option_id.option
 
-            record.op_2_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_3_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 3:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_3_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_4_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 4:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_4_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_5_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 5:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_5_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_6_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 6:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_6_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_7_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 7:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_7_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_8_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 8:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_8_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_9_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 9:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_9_allowed = allowed_machines.ids
-
-            allowed_machines = self.env["print.machine"]
-            if record.op_10_use == False:
-                for step in record.product.product_step:
-                    if step.sequence == 10:
-                        allowed_machines |= step.machine_option_id.option
-
-            record.op_10_allowed = allowed_machines.ids
+                setattr(record, f"op_{key}_allowed", allowed_machines.ids)
 
     def _compute_order_id(self):  #create order id
         for order in self:

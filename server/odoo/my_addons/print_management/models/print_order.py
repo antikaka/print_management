@@ -78,75 +78,28 @@ class PrintOrder(models.Model):
 
     # @api.depends("product", "product.product_step", "product.product_step.machine_option_id", "product.product_step.machine_option_id.option", "product.product_step.sequence")
     @api.onchange("product")
-    def _compute_number_ops(self):    #check how many steps a product has and thus create lines
+    def _compute_number_ops(self):    #check how many steps a product has and thus create lines and label them onchange
         for record in self:
-            record.op_1_use = True
-            record.op_2_use = True
-            record.op_3_use = True
-            record.op_4_use = True
-            record.op_5_use = True
-            record.op_6_use = True
-            record.op_7_use = True
-            record.op_8_use = True
-            record.op_9_use = True
-            record.op_10_use = True
+            for x in range(10):
+                x += 1
+                setattr(record, f"op_{x}_use", True)
             for step in record.product.product_step:
+                for x in range(10):
+                    x += 1
 
-                if step.sequence == 1:
-                    record.op_1_use = False
-                    record.op_1_label = step.step_name
-                if step.sequence == 2:
-                    record.op_2_use = False
-                    record.op_2_label = step.step_name
-                if step.sequence == 3:
-                    record.op_3_use = False
-                    record.op_3_label = step.step_name
-                if step.sequence == 4:
-                    record.op_4_use = False
-                    record.op_4_label = step.step_name
-                if step.sequence == 5:
-                    record.op_5_use = False
-                    record.op_5_label = step.step_name
-                if step.sequence == 6:
-                    record.op_6_use = False
-                    record.op_6_label = step.step_name
-                if step.sequence == 7:
-                    record.op_7_use = False
-                    record.op_7_label = step.step_name
-                if step.sequence == 8:
-                    record.op_8_use = False
-                    record.op_8_label = step.step_name
-                if step.sequence == 9:
-                    record.op_9_use = False
-                    record.op_9_label = step.step_name
-                if step.sequence == 10:
-                    record.op_10_use = False
-                    record.op_10_label = step.step_name
+                    if step.sequence == x:
+                        setattr(record, f"op_{x}_use", False)
+                        setattr(record, f"op_{x}_label", step.step_name)
 
     @api.depends("product", "product.product_step", "product.product_step.machine_option_id", "product.product_step.machine_option_id.option", "product.product_step.sequence")
     def _compute_label(self):         #label the product step lines in the order
         for record in self:
             for step in record.product.product_step:
-                if record.op_1_use == False and step.sequence == 1:
-                    record.op_1_label = step.step_name
-                if record.op_2_use == False and step.sequence == 2:
-                    record.op_2_label = step.step_name
-                if record.op_3_use == False and step.sequence == 3:
-                    record.op_3_label = step.step_name
-                if record.op_4_use == False and step.sequence == 4:
-                    record.op_4_label = step.step_name
-                if record.op_5_use == False and step.sequence == 5:
-                    record.op_5_label = step.step_name
-                if record.op_6_use == False and step.sequence == 6:
-                    record.op_6_label = step.step_name
-                if record.op_7_use == False and step.sequence == 7:
-                    record.op_7_label = step.step_name
-                if record.op_8_use == False and step.sequence == 8:
-                    record.op_8_label = step.step_name
-                if record.op_9_use == False and step.sequence == 9:
-                    record.op_9_label = step.step_name
-                if record.op_10_use == False and step.sequence == 10:
-                    record.op_10_label = step.step_name
+                for x in range(10):
+                    x += 1
+
+                    if getattr(record, f"op_{x}_use") == False and step.sequence == x:
+                        setattr(record, f"op_{x}_label", step.step_name)
 
     @api.depends("product", "product.product_step", "product.product_step.machine_option_id", "product.product_step.machine_option_id.option", "product.product_step.sequence")
     # @api.onchange("product")

@@ -33,8 +33,8 @@ class PrintMachine(models.Model):
             record.instruction_text = text_lines
 
     @api.depends("name")
-    def _compute_name_readonly(self):    #after first time entering the name of the machine
-        for record in self:              #it becomes readonly
+    def _compute_name_readonly(self):    #after creation of machine entry, name becomes readonly
+        for record in self:
             if not record.id:
                 record.name_readonly = False
             else:
@@ -58,8 +58,8 @@ class PrintMachineInstruction(models.Model):
     instruction_text = fields.Text(string="Instructions")
 
     @api.depends("option_id", "machine_id")
-    def _get_machine_n_option_name(self):     #clear name for machine options is:
-        for record in self:                   #machine + option
+    def _get_machine_n_option_name(self):     #name for machine options is: machine + option
+        for record in self:
             option = record.option_id.name
             machine = record.machine_id.name
             name = str(machine) + " " + option

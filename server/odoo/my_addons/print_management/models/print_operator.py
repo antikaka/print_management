@@ -82,7 +82,7 @@ class PrintOperator(models.Model):
 
     @api.depends("op_product_steps", "op_product_machines", "operator_product")
     # @api.onchange("current_step_num")
-    def _compute_curr_step(self):  #for checking which step it is now and thus populating the machine and step names
+    def _compute_curr_step(self):  #checking which step it is now and thus populating the machine and step names
         for record in self:
             steps = record.op_product_steps
             steps = steps[1:-2].split(",")

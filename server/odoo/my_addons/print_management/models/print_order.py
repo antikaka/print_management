@@ -103,7 +103,7 @@ class PrintOrder(models.Model):
 
     @api.depends("product", "product.product_step", "product.product_step.machine_option_id", "product.product_step.machine_option_id.option", "product.product_step.sequence")
     # @api.onchange("product")
-    def _compute_available_machines(self): #check which machines have the option to complete the product step
+    def _compute_available_machines(self): #check which machines are capable of completing the product step
         temp_dict = {}
         for x in range(10):
             var_name = "op_" + str(x + 1) + "_use"
